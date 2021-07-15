@@ -1,6 +1,17 @@
+import React, { useContext } from "react";
+import {RouteContext, pageMap} from "./routing";
+
+import Login from './routes/Login';
+import Main from './routes/Main';
 
 export default function App() {
-   	return (
-    	<div className="App"></div>
+   	const {path} = useContext(RouteContext);
+
+	return (
+    	<div className="App">
+			{path === pageMap.main? <Main/>: null}
+			{path === pageMap.login? <Login/>: null}
+		</div>
   	);
 }
+
