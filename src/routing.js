@@ -1,4 +1,5 @@
-import {useState, createContext, useEffect} from "react";
+import {useState, createContext, useContext, useEffect} from "react";
+import {RoomContext} from './room';
 
 export const pageMap = {
     login: "login",
@@ -7,6 +8,8 @@ export const pageMap = {
 export const RouteContext = createContext(pageMap);
 
 export const Router = ({children}) => {
+    const {setUser, setRoom} = useContext(RoomContext);
+
     let urlPath = window.location.pathname.slice(1).toLowerCase()
 
     const [path, setPath] = useState(urlPath || pageMap.main);
@@ -31,10 +34,16 @@ export const Router = ({children}) => {
         }
     }, [path, logged]);
 
-    const login = () => {
-        
+    const login = (room, {code, name}) => {
+        if(code){
+            setUser(room.users.find(user => {return user._id === code}));
+        }else{
+            setUser(room.users.find(user => {return user.name === name}));
+        }
+
+        setRoom(room);
 		setLogged(true);
-		setPath("main");
+		setPath(pageMap.main);
 	}
 
     return (

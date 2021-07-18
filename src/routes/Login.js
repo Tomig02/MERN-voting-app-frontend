@@ -4,40 +4,43 @@ import {RouteContext} from "../routing";
 export default function LoginRoute(){
 	const {login} = useContext(RouteContext);
 
+	const [creando, setCreando] = useState(false);
+
 	const checkLogin = async (event) => {
 		event.preventDefault();
 		const userCode = new FormData(event.target).get("code");
-		console.log(userCode);
 		
-		console.log( await mensajeBackend("http://localhost:3001/login", {
+		const res = await mensajeBackend("http://localhost:3001/login", {
 			id: userCode
-		}));
+		});
+
+		if(res){
+			login(res, {code: userCode});
+		}
+		else{
+			alert("ups! parece que ocurrio un error");
+		}
 	}
 
 	const ingresarSala = async (event) => {
 		event.preventDefault();
 		const formD = new FormData(event.target);
 
-		console.log( await mensajeBackend("http://localhost:3001/addNewUser", {
+		const res = await mensajeBackend("http://localhost:3001/addNewUser", {
 			name: formD.get("name"),
 			image: formD.get("image"),
 			roomID: formD.get("groupID")
-		}));
-	}
-
-	const mensajeBackend = async (url, message) => {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(message)
 		});
-
-		return await response.json();
+		console.log(res);
+		if(res){
+			alert(`Solicitud de ingreso enviada con exito!, 
+				podes entrar pero no podras participar hasta ser aceptado`);
+			login(res, {name: formD.get("name")});
+		}
+		else{
+			alert("ups! parece que ocurrio un error");
+		}
 	}
-
-	const [creando, setCreando] = useState(false);
 
 	const PopUpCrear = () => {
 		const crearSala = async (event) => {
@@ -47,12 +50,18 @@ export default function LoginRoute(){
 			const message = {
 				name: formD.get("name"),
             	description: formD.get("description"),
-            	user: {
-					name: formD.get("username"),
-					image: formD.get("image")
-				}
+            	username: formD.get("username"),
+				image: formD.get("image")
 			}
-			console.log( await mensajeBackend("http://localhost:3001/createRoom", message));
+			
+			const res = await mensajeBackend("http://localhost:3001/createRoom", message);
+
+			if(res){
+				login(res, {name: formD.username});	
+			}
+			else{
+				alert("ups! parece que ocurrio un error");
+			}
 		}
 
 		return(
@@ -74,6 +83,22 @@ export default function LoginRoute(){
 				<button>Send</button>
 			</form>
 		)
+	}
+
+	const mensajeBackend = async (url, message) => {
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(message)
+		});
+
+		if(response.ok){
+			return await response.json();
+		}else{
+			return null;
+		}
 	}
 
 	return(
