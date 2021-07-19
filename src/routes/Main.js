@@ -1,22 +1,15 @@
-import React, { useContext } from 'react';
-import {RoomContext} from '../room';
+import React, { useContext, useEffect, useState} from 'react';
+import {RoomContext} from '../contexts/room';
 import Proposal from '../components/proposal/Proposal'
 import Sidebar from '../components/sidebar/Sidebar';
 
-/*
-	TODO LIST
-		-- proposal funtions
-		-- full admin panel
-		-- full side panel
-
-*/
 export default function MainRoute(){
 	const {room, user} = useContext(RoomContext);
-	
+
 	const renderProposals = () => {
-		return room.proposals.map(element => {
+		return room.proposals.map( element => {
 			return <Proposal key={element._id} {...element} />
-		});
+		})
 	}
 
 	return(

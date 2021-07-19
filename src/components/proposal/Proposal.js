@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import {RoomContext} from "../../room"; 
+import {RoomContext} from "../../contexts/room"; 
 
 export default function Proposal( props ){
     const {user, setRoom} = useContext(RoomContext);
-    console.log(user);
+
     const handleClick = async () => {
         const res = await mensajeBackend("http://localhost:3001/vote",{
             propID: props._id,

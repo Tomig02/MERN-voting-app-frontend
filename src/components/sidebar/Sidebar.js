@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AdminPanel from '../adminPanel/AdminPanel';
+import AddPopUp from '../popups/PropAdd';
+import DeletePopUp from '../popups/PropDelete';
 
 export default function Sidebar( props){
 
-    const addProposal = () => {
-        //TODO fetch to add proposal
-    }
-
-    const deleteProposal = () => {
-        //TODO fetch to delete proposal
-    }
+    const [showAdd, setShowAdd] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
 
     return(
         <div>
@@ -19,10 +16,12 @@ export default function Sidebar( props){
             <h3>Admin: {props.admin}</h3>
 
             <div>
-                <button onClick={addProposal}>Add proposal</button>
-                <button onClick={deleteProposal}>Delete proposal</button>
+                <button onClick={() => {setShowAdd(!showAdd)}}>Add proposal</button>
+                <button onClick={() => {setShowDelete(!showDelete)}}>Delete proposal</button>
             </div>
 
+            {showAdd? <AddPopUp />: null}
+            {showDelete? <DeletePopUp setShowDelete={setShowDelete} />: null}
             {props.isAdmin? <AdminPanel/>: null}
         </div>
     );

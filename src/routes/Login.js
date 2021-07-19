@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import {RouteContext} from "../routing";
+import {RouteContext} from "../contexts/routing";
 
 export default function LoginRoute(){
 	const {login} = useContext(RouteContext);
@@ -57,7 +57,7 @@ export default function LoginRoute(){
 			const res = await mensajeBackend("http://localhost:3001/createRoom", message);
 
 			if(res){
-				login(res, {name: formD.username});	
+				login(res, {name: formD.get("username")});	
 			}
 			else{
 				alert("ups! parece que ocurrio un error");
