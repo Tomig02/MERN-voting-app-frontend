@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import {RouteContext} from "../contexts/routing";
+import Button from '../components/general/Button';
 
 export default function LoginRoute(){
 	const {login} = useContext(RouteContext);

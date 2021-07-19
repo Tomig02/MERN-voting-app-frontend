@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState} from 'react';
+import React, { useContext } from 'react';
 import {RoomContext} from '../contexts/room';
 import Proposal from '../components/proposal/Proposal'
 import Sidebar from '../components/sidebar/Sidebar';
