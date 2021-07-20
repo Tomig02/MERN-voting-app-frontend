@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { RoomContext } from '../../contexts/room';
 
-export default function PropAdd(){
+export default function PropAdd(props){
     const {user, room, setRoom} = useContext(RoomContext);
 
     const addProposal = async (event) => {
@@ -41,17 +41,20 @@ export default function PropAdd(){
 	}
 
     return(
-        <form onSubmit={addProposal}>
-            <label>Title: </label>
-            <input type="text" name="title"/>
-            
-            <label>Description: </label>
-            <input type="text" name="description"/>
-            
-            <label>Image: </label>
-            <input type="text" name="image"/>
- 
-            <button>Create</button>
-        </form>
+        <div className="popup-bg">
+            <form className="popup" onSubmit={addProposal}>
+                <label>Title: </label>
+                <input type="text" name="title"/>
+                
+                <label>Description: </label>
+                <input type="text" name="description"/>
+                
+                <label>Image: </label>
+                <input type="text" name="image"/>
+
+                <button>Create</button>
+                <button onClick={() => {props.close(false)}}>Cancel</button>
+            </form>
+        </div>
     );
 }

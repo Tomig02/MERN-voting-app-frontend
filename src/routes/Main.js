@@ -16,8 +16,8 @@ export default function MainRoute(){
 		<div>
 			<div className="room-description">
 				<h1>{room.name}</h1>
-				<p>Description: {room.description}</p>
-				<p>Room code: {room._id}</p>
+				<p><strong>Description:</strong> {room.description}</p>
+				<p><strong>Room code:</strong> {room._id}</p>
 			</div>
 
 			<div className="proposals-grid">
@@ -25,8 +25,6 @@ export default function MainRoute(){
 			</div>
 			
 			<Sidebar {...room} isAdmin={user.admin}/>
-
-			<div id="json-data">{JSON.stringify(room, 4)}</div>
 		</div>
 	)
 }

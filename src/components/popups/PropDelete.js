@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { RoomContext } from '../../contexts/room';
+import Button from '../general/Button';
 
 export default function PropDelete( props ){
     const {room, user, setRoom} = useContext(RoomContext);
@@ -35,11 +36,13 @@ export default function PropDelete( props ){
 	}
 
     return(
-        <div>
-            <p>Estas seguro de que queres borrar tu propuesta?</p>
-            <div>
-                <button onClick={deleteProposal}>SI</button>
-                <button onClick={() => {props.setShowDelete(false)}}>NO</button>
+        <div className="popup-bg">
+            <div className="popup">
+                <p>Estas seguro de que queres borrar tu propuesta?</p>
+                <div className="row">
+                    <Button action={deleteProposal} text="Borrar"/>
+                    <button onClick={() => {props.setShowDelete(false)}}>Cancelar</button>
+                </div>
             </div>
         </div>
     );

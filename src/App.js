@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import {RouteContext, pageMap} from "./contexts/routing";
+import './scss/style.css';
 
 import Login from './routes/Login';
 import Main from './routes/Main';

@@ -1,0 +1,14 @@
+
+
+html{
+    font-size: 0.8em;
+    @media(min-width: 600px){
+        font-size: 1em;
+    }
+    @media(min-width: 1200px){
+        font-size: 1.3em;
+    }
+    @media(min-width: 2000px){
+        font-size: 1.2em;
+    }
+}

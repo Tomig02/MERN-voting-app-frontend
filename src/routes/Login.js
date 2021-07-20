@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import {RouteContext} from "../contexts/routing";
 import Button from '../components/general/Button';
+import PopUpCrear from '../components/popups/newRoom';
 
 export default function LoginRoute(){
 	const {login} = useContext(RouteContext);
@@ -43,49 +44,6 @@ export default function LoginRoute(){
 		}
 	}
 
-	const PopUpCrear = () => {
-		const crearSala = async (event) => {
-			event.preventDefault();
-			const formD = new FormData(event.target);
-
-			const message = {
-				name: formD.get("name"),
-            	description: formD.get("description"),
-            	username: formD.get("username"),
-				image: formD.get("image")
-			}
-			
-			const res = await mensajeBackend("http://localhost:3001/createRoom", message);
-
-			if(res){
-				login(res, {name: formD.get("username")});	
-			}
-			else{
-				alert("ups! parece que ocurrio un error");
-			}
-		}
-
-		return(
-			<form onSubmit={crearSala}>
-				<h2>Ingresa los datos de tu nueva sala</h2>
-
-				<label htmlFor="name">Room name</label>
-				<input type="text" name="name"/>
-
-				<label htmlFor="description">Room description</label>
-				<input type="text" name="description"/>
-
-				<label htmlFor="username">Username</label>
-				<input type="text" name="username"/>
-
-				<label htmlFor="image">Image URL</label>
-				<input type="text" name="image"/>
-
-				<button>Send</button>
-			</form>
-		)
-	}
-
 	const mensajeBackend = async (url, message) => {
 		const response = await fetch(url, {
 			method: 'POST',
@@ -103,19 +61,21 @@ export default function LoginRoute(){
 	}
 
 	return(
-		<div>
+		<div className="login">
 			<h1>titulo de esta web app y texto de bienvenida supongo</h1>
 			
 			<form onSubmit={checkLogin}>
-				<h2>Codigo de usuario</h2>
+				<h2>Accede utilizando tu codigo de usuario</h2>
+				
 				<input type="text" name="code"/>
 
 				<button>Send</button>
 			</form>
 
-			<form onSubmit={ingresarSala}>
-				<h2>Codigo de sala</h2>
-
+			
+			<form className="join" onSubmit={ingresarSala}>
+				<h2>Solicita permiso para unirse a un grupo</h2>
+				
 				<label htmlFor="name">Name</label>
 				<input type="text" name="name"/>
 
@@ -129,9 +89,9 @@ export default function LoginRoute(){
 			</form>
 
 			<h2>Crear una sala nueva</h2>
-			<button onClick={() => {setCreando(!creando)}}>Crear sala</button>
+			<Button action={() => {setCreando(true)}} text="Crear sala"/>
 
-			{creando? PopUpCrear(): null} 
+			{creando? <PopUpCrear close={setCreando}/>: null} 
 		</div>
 	)
 }

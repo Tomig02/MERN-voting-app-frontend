@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import {RoomContext} from "../../contexts/room"; 
+import Button from "../general/Button";
 
 export default function Proposal( props ){
     const {user, setRoom} = useContext(RoomContext);
+    const placeholder = "https://generative-placeholders.glitch.me/image?width=600&height=300&style=triangles&gap=30";
 
     const handleClick = async () => {
         const res = await mensajeBackend("http://localhost:3001/vote",{
@@ -25,7 +27,7 @@ export default function Proposal( props ){
 			},
 			body: JSON.stringify(message)
 		});
-        console.log(response);
+
 		if(response.ok){
 			return await response.json();
 		}else{
@@ -33,15 +35,22 @@ export default function Proposal( props ){
 		}
 	}
 
+    const validURL = (url) => {
+        const string = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+        const regex = new RegExp(string);
+        
+        return url.match(regex);
+    }
+
     return(
-        <div className="proposal-base">
+        <div className="proposal">
             <div className="row">
                 <h2 className="proposal-title">{props.name}</h2>
-                <button className="vote-btn" onClick={handleClick}>Vote</button>
+                <Button action={handleClick} text="vote"/>
             </div>
             <p className="proposal-description">{props.description}</p>
-            <p>Votes: {props.votes}</p>
-            <img className="proposal-image" alt="" src={props.image}/> 
+            <p><strong>Votes:</strong>  {props.votes}</p>
+            <img className="proposal-image" alt="" src={validURL(props.image)? props.image: placeholder}/> 
         </div>
     );
 }

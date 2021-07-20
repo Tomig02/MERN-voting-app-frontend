@@ -1,0 +1,18 @@
+
+$main: #78FF96;
+$caution: #FF8777;
+$gray: #F0F0F0;
+$img-bg: #C4C4C4;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    padding-bottom: 3rem;
+    background: $gray;
+}
+
+@import './routes/login', './general/general', './general/font', './general/responsive', './routes/main';

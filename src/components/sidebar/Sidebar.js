@@ -9,18 +9,17 @@ export default function Sidebar( props){
     const [showDelete, setShowDelete] = useState(false);
 
     return(
-        <div>
+        <div className="side-bar">
             <h3>Participants: {props.users.length}</h3>
             <h3>Votes: {props.votes}/{props.users.length}</h3>
             <h3>Proposals: {props.proposals.length}/{props.users.length}</h3>
             <h3>Admin: {props.admin}</h3>
 
-            <div>
-                <button onClick={() => {setShowAdd(!showAdd)}}>Add proposal</button>
-                <button onClick={() => {setShowDelete(!showDelete)}}>Delete proposal</button>
-            </div>
+            <button onClick={() => {setShowAdd(!showAdd)}}>Add proposal</button>
+            <button onClick={() => {setShowDelete(!showDelete)}}>Delete proposal</button>
 
-            {showAdd? <AddPopUp />: null}
+
+            {showAdd? <AddPopUp close={setShowAdd}/>: null}
             {showDelete? <DeletePopUp setShowDelete={setShowDelete} />: null}
             {props.isAdmin? <AdminPanel/>: null}
         </div>

@@ -1,0 +1,41 @@
+
+
+.login{
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2{
+        margin: 1rem 0;
+    }
+    form{
+        width: 70%;
+        label{
+            align-self: flex-start;
+            padding: 0 1rem;
+            margin-top: 0.5rem;
+        }
+        button{
+            margin-top: 1rem;
+            align-self: flex-start;
+        }
+    }
+    .join{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2{
+            align-self: flex-start;
+        }
+    }
+    input{
+        width: 100%;
+    }
+}
+.new-room{
+    button{
+        margin-right: 1rem;
+    }
+}

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+html{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1, h2, h3, p, label{
+    font-family: inherit;
+}
+h1{
+    font-size: 2.6rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    padding: 0 1.5rem;
+}
+h2{
+    font-size: 1.7rem;
+    font-weight: bold;
+    letter-spacing: 0.07rem;
+}
+h3{
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+p{
+    font-size: 1rem;
+}
