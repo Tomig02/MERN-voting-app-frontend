@@ -14,7 +14,7 @@ export default function LoginRoute(){
 		event.preventDefault();
 		const userCode = new FormData(event.target).get("code");
 		
-		const res = await mensajeBackend("http://localhost:3001/login", {
+		const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/login`, {
 			id: userCode
 		});
 
@@ -30,7 +30,7 @@ export default function LoginRoute(){
 		event.preventDefault();
 		const formD = new FormData(event.target);
 
-		const res = await mensajeBackend("http://localhost:3001/addNewUser", {
+		const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/addNewUser`, {
 			name: formD.get("name"),
 			image: formD.get("image"),
 			roomID: formD.get("groupID")

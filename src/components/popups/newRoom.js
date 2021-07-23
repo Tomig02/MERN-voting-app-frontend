@@ -18,7 +18,7 @@ export default function PopUpCrear(props){
             image: formD.get("image")
         }
         
-        const res = await mensajeBackend("http://localhost:3001/createRoom", message);
+        const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/createRoom`, message);
 
         if(res){
             login(res, {name: formD.get("username")});	

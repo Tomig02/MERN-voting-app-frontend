@@ -8,7 +8,7 @@ export default function KickMenu(props){
         const {setOpen} = props;
 
         const kickUser = async ( kickID ) => {
-            const res = await mensajeBackend("http://localhost:3001/kickUser", {
+            const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/kickUser`, {
                 roomID: room._id,
                 userID: kickID
             });

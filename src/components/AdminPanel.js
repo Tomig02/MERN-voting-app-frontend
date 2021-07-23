@@ -20,7 +20,7 @@ export default function AdminPanel(){
     }
 
     const endVote = async () => {
-        const res = await mensajeBackend("http://localhost:3001/Finish", {
+        const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/Finish`, {
             roomID: room._id
         });
 

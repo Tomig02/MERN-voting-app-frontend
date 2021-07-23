@@ -6,17 +6,36 @@ import Header from './components/general/Header';
 import Login from './routes/Login';
 import Main from './routes/Main';
 import Results from './routes/Results';
+import { RoomContext } from "./contexts/room";
 
 export default function App() {
-   	const {path} = useContext(RouteContext);
+	const {room} = useContext(RoomContext);
+	const {path} = useContext(RouteContext);
+
+	const selectRoute = () => {
+		let page;
+		const isEmpty = !(Object.keys(room).length > 0);
+
+		switch(path){
+			case !isEmpty && pageMap.main:
+				page = <Main />;
+				break;
+			case !isEmpty && pageMap.results:
+				page = <Results />; 
+				break; 
+			default:
+				page = <Login />
+				break;
+		}
+
+		return page;
+	}
 
 	return (
 		<Fragment>
-			{path === pageMap.main? <Header />: null}
+			{[pageMap.main, pageMap.results].includes(path)? <Header />: null}
 			<div className="App">
-				{path === pageMap.main? <Main/>: null}
-				{path === pageMap.login? <Login/>: null}
-				{path === pageMap.results? <Results/>: null}
+				{selectRoute()}
 			</div>
 		</Fragment>
   	);

@@ -8,7 +8,7 @@ export default function Request(props){
     const {name, _id, image} = props;
 
     const handleReq = async ( isAccepted ) => {
-        const res = await mensajeBackend("http://localhost:3001/handleReq", {
+        const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/handleReq`, {
             roomID: room._id,
             userID: _id,
             accept: isAccepted
@@ -28,10 +28,5 @@ export default function Request(props){
             text={name}
             image={image}
         />
-        // <div>
-        //     <p>{name}</p>
-        //     <button onClick={() => {handleReq(true)}}>V</button>
-        //     <button onClick={() => {handleReq(false)}}>X</button>
-        // </div>
     );
 }

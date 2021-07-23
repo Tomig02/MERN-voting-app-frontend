@@ -8,7 +8,7 @@ export default function PropDelete( props ){
     const {room, user, setRoom} = useContext(RoomContext);
 
     const deleteProposal = async () => {
-        const res = await mensajeBackend("http://localhost:3001/deleteProposal", {
+        const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/deleteProposal`, {
             userID: user._id,
             roomID: room._id
         });

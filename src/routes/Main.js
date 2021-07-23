@@ -4,7 +4,7 @@ import Proposal from '../components/Proposal'
 import Sidebar from '../components/Sidebar';
 
 export default function MainRoute(){
-	const {room, user} = useContext(RoomContext);
+	const {room, user} = useContext(RoomContext); 
 
 	const renderProposals = () => {
 		return room.proposals.map( element => {

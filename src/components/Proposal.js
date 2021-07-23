@@ -8,7 +8,7 @@ export default function Proposal( props ){
     const placeholder = "https://generative-placeholders.glitch.me/image?width=600&height=300&style=triangles&gap=30";
 
     const handleClick = async () => {
-        const res = await mensajeBackend("http://localhost:3001/vote",{
+        const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/vote`,{
             propID: props._id,
             userName: user.name 
         })  
@@ -23,7 +23,7 @@ export default function Proposal( props ){
     const [hasVoted, setHasVoted] = useState(false);
     useEffect(() => {
         setHasVoted(props.voters.indexOf(user.name) !== -1)
-    }, [props.voters]);
+    }, [props.voters, user.name]);
 
     return(
         <div className="proposal">

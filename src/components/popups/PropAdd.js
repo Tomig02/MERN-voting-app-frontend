@@ -9,7 +9,7 @@ export default function PropAdd(props){
         event.preventDefault();
         const formD = new FormData(event.target);
 
-        const res = await mensajeBackend("http://localhost:3001/newProposal", {
+        const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/newProposal`, {
             name: formD.get("title"),
             image: formD.get("image"),
             description: formD.get("description"),

@@ -1,19 +1,13 @@
-import React, { useContext, useEffect, useState, Fragment} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import { RoomContext } from '../contexts/room';
 
 export default function Results(){
     const {room} = useContext(RoomContext);
 
-    console.log('results showing');
-
     const [winner, setWinner] = useState(null);
     const [proposal, setProposal] = useState([]);
 
     const Card = (props) => {
-        console.log(props);
-
-        console.log(props.votes, room.users.length);
-        console.log(Math.round((props.votes / room.users.length)* 100) );
         return (
             <div className="last-card">
                 <img src={props.image} alt=""/>
