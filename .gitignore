@@ -116,7 +116,7 @@ dist
 /build
 
 # misc
-*.css
+
 *.css.map
 
 .DS_Store
