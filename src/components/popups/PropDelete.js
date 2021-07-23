@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import { RoomContext } from '../../contexts/room';
+import {mensajeBackend} from '../../helpers';
+
 import Button from '../general/Button';
 
 export default function PropDelete( props ){
@@ -18,22 +20,6 @@ export default function PropDelete( props ){
             alert("error!");
         }    
     }
-
-    const mensajeBackend = async (url, message) => {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(message)
-		});
-
-		if(response.ok){
-			return await response.json();
-		}else{
-			return null;
-		}
-	}
 
     return(
         <div className="popup-bg">

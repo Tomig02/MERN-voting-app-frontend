@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
-import {RoomContext} from "../../contexts/room"; 
-import Button from "../general/Button";
+import React, { useContext, useEffect, useState } from "react";
+import {RoomContext} from "../contexts/room"; 
+import {validURL, mensajeBackend} from '../helpers';
+import Button from "./general/Button";
 
 export default function Proposal( props ){
     const {user, setRoom} = useContext(RoomContext);
@@ -11,7 +12,7 @@ export default function Proposal( props ){
             propID: props._id,
             userName: user.name 
         })  
-        console.log(res);
+
         if(res){
             setRoom(res);
         }else{
@@ -19,34 +20,16 @@ export default function Proposal( props ){
         }
     }
 
-    const mensajeBackend = async (url, message) => {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(message)
-		});
-
-		if(response.ok){
-			return await response.json();
-		}else{
-			return null;
-		}
-	}
-
-    const validURL = (url) => {
-        const string = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-        const regex = new RegExp(string);
-        
-        return url.match(regex);
-    }
+    const [hasVoted, setHasVoted] = useState(false);
+    useEffect(() => {
+        setHasVoted(props.voters.indexOf(user.name) !== -1)
+    }, [props.voters]);
 
     return(
         <div className="proposal">
             <div className="row">
-                <h2 className="proposal-title">{props.name}</h2>
-                <Button action={handleClick} text="vote"/>
+                <h3 className="proposal-title">{props.name}</h3>
+                <Button caution={hasVoted} action={handleClick} text="vote"/>
             </div>
             <p className="proposal-description">{props.description}</p>
             <p><strong>Votes:</strong>  {props.votes}</p>

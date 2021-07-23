@@ -6,6 +6,7 @@ html{
 
 h1, h2, h3, p, label{
     font-family: inherit;
+    word-wrap: break-word;
 }
 h1{
     font-size: 2.6rem;
@@ -20,7 +21,7 @@ h2{
     letter-spacing: 0.07rem;
 }
 h3{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 p{

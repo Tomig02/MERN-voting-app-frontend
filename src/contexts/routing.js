@@ -3,7 +3,8 @@ import {RoomContext} from './room';
 
 export const pageMap = {
     login: "login",
-    main: "main"
+    main: "main",
+    results: "results"
 }
 export const RouteContext = createContext(pageMap);
 
@@ -34,6 +35,18 @@ export const Router = ({children}) => {
         }
     }, [path, logged]);
 
+    const update = ({room= undefined, newLogged= undefined} = {}) => {
+        if(room){
+            setRoom(room);
+        }
+        if(newLogged & logged !== newLogged){
+            setLogged(newLogged);
+        }
+        if(room.fin === true){
+            setPath(pageMap.results);
+        }
+    }
+
     const login = (room, {code, name}) => {
         if(code){
             setUser(room.users.find(user => {return user._id === code}));
@@ -41,15 +54,20 @@ export const Router = ({children}) => {
             setUser(room.users.find(user => {return user.name === name}));
         }
 
-        setRoom(room);
-		setLogged(true);
-		setPath(pageMap.main);
+        
+        update({room: room, newLogged: true});
+
+        if(room.fin !== true){
+            setPath(pageMap.main);
+        }
 	}
 
     return (
         <RouteContext.Provider value={{
             path: path,
-            login: login
+            login: login,
+            update: update,
+            setLogged: setLogged
         }}>
             {children}
         </RouteContext.Provider>

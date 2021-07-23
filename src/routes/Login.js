@@ -2,11 +2,13 @@ import React, { useContext, useState } from "react";
 import {RouteContext} from "../contexts/routing";
 import Button from '../components/general/Button';
 import PopUpCrear from '../components/popups/newRoom';
-
+import {mensajeBackend} from '../helpers';
 export default function LoginRoute(){
 	const {login} = useContext(RouteContext);
 
 	const [creando, setCreando] = useState(false);
+	const [comunicar, setComunicar] = useState(false);
+	const [mensaje, setMensaje] = useState(false);
 
 	const checkLogin = async (event) => {
 		event.preventDefault();
@@ -20,7 +22,7 @@ export default function LoginRoute(){
 			login(res, {code: userCode});
 		}
 		else{
-			alert("ups! parece que ocurrio un error");
+			alert("ups! parece que ocurrio un error, asegurate de que tu codigo de usuario es correcto");
 		}
 	}
 
@@ -35,34 +37,28 @@ export default function LoginRoute(){
 		});
 		console.log(res);
 		if(res){
-			alert(`Solicitud de ingreso enviada con exito!, 
-				podes entrar pero no podras participar hasta ser aceptado`);
-			login(res, {name: formD.get("name")});
+			setMensaje(`Solicitud de ingreso enviada con exito, solo queda esperar a ser aceptado! 
+			Tu codigo es: ${res}`)
+			setComunicar(true);
 		}
 		else{
-			alert("ups! parece que ocurrio un error");
+			alert("ups! parece que ocurrio un error, Asegurate de que el codigo de sala sea correcto");
 		}
 	}
 
-	const mensajeBackend = async (url, message) => {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(message)
-		});
-
-		if(response.ok){
-			return await response.json();
-		}else{
-			return null;
-		}
+	const PopUpMensaje = (props) => {
+		return(
+			<div className="popup-bg">
+				<div className="popup msg">
+					<p>{props.mensaje}</p>
+					<button onClick={() => {props.close(false)}}>OK</button>
+				</div>
+			</div>
+		);
 	}
 
 	return(
 		<div className="login">
-			<h1>titulo de esta web app y texto de bienvenida supongo</h1>
 			
 			<form onSubmit={checkLogin}>
 				<h2>Accede utilizando tu codigo de usuario</h2>
@@ -91,7 +87,8 @@ export default function LoginRoute(){
 			<h2>Crear una sala nueva</h2>
 			<Button action={() => {setCreando(true)}} text="Crear sala"/>
 
-			{creando? <PopUpCrear close={setCreando}/>: null} 
+			{creando? <PopUpCrear close={setCreando}/>: null}
+			{comunicar? <PopUpMensaje mensaje={mensaje} close={setComunicar}/>: null}
 		</div>
 	)
 }

@@ -9,10 +9,75 @@ $img-bg: #C4C4C4;
     padding: 0;
     box-sizing: border-box;
 }
-
-body{
-    padding-bottom: 3rem;
+.App{
+    position: relative;
+}
+.login, .main-body{
+    padding: 1rem;
+    padding-bottom: 3rem; 
+}
+.main-body{
     background: $gray;
 }
 
 @import './routes/login', './general/general', './general/font', './general/responsive', './routes/main';
+
+.results{
+    padding: 2rem;
+    
+    h1{
+        margin: 2rem 0;
+    }
+    h2{
+        margin: 1rem 0;
+    }
+    .proposals-grid{
+        margin: auto;
+        width: 80%;
+    }
+}
+.winner{
+    padding: 0 3rem;
+
+    display: flex;
+    justify-content: center;
+
+    .last-card{
+        min-width: fit-content;
+        width: 50%;
+    }
+}
+.last-card{
+    height: 12rem;
+    width: 100%;
+    padding: 1rem;
+    
+    display: flex;
+    align-items: center;
+   
+    border-radius: 0.5em;
+    box-shadow: 0 0 0.4em #00000033;
+
+    img{
+        min-width: 10rem;
+        height: 100%;
+        border-radius: 1rem;
+
+        object-fit: cover;
+        object-position: center;
+        overflow: hidden;
+        background: $gray;
+    }
+    .text-container{
+        height: inherit;
+        padding: 1rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        p{
+            word-wrap: break-word;
+        }
+    }
+}

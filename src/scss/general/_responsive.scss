@@ -2,11 +2,29 @@
 
 html{
     font-size: 0.8em;
+    .proposals-grid{
+        margin: auto;
+    }
+
     @media(min-width: 600px){
         font-size: 1em;
     }
-    @media(min-width: 1200px){
+    @media(min-width: 1100px){
         font-size: 1.3em;
+        .abs-container{
+            display: block;
+        }
+        .proposals-grid{
+            width: 67%;
+            margin: auto 0;
+            grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+        }
+        .room-description{
+            width: 67%;
+        }
+        .burger-btn{
+            display: none;
+        }
     }
     @media(min-width: 2000px){
         font-size: 1.2em;

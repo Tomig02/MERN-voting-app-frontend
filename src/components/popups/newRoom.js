@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { RouteContext } from '../../contexts/routing';
+import {mensajeBackend} from '../../helpers';
 import Button from '../general/Button';
 
 export default function PopUpCrear(props){
@@ -27,22 +28,6 @@ export default function PopUpCrear(props){
         }
     }
 
-    const mensajeBackend = async (url, message) => {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(message)
-		});
-
-		if(response.ok){
-			return await response.json();
-		}else{
-			return null;
-		}
-	}
-
     return(
         <div className="popup-bg">
             <form className="popup new-room" onSubmit={crearSala}>
@@ -60,7 +45,7 @@ export default function PopUpCrear(props){
                 <label htmlFor="image">Image URL</label>
                 <input type="text" name="image"/>
 
-                <Button text="Send" action={null} />
+                <button>Create</button>
                 <Button action={() => {close(false)}} text="Cancel"/>
             </form>
         </div>

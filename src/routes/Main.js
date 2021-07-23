@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import {RoomContext} from '../contexts/room';
-import Proposal from '../components/proposal/Proposal'
-import Sidebar from '../components/sidebar/Sidebar';
+import Proposal from '../components/Proposal'
+import Sidebar from '../components/Sidebar';
 
 export default function MainRoute(){
 	const {room, user} = useContext(RoomContext);
@@ -13,7 +13,7 @@ export default function MainRoute(){
 	}
 
 	return(
-		<div>
+		<div className="main-body">
 			<div className="room-description">
 				<h1>{room.name}</h1>
 				<p><strong>Description:</strong> {room.description}</p>
@@ -24,7 +24,9 @@ export default function MainRoute(){
 				{renderProposals()}
 			</div>
 			
-			<Sidebar {...room} isAdmin={user.admin}/>
+			<Sidebar isAdmin={user.admin} name={user.name} code={user._id} />
+
+			<button className="burger-btn"><img src="./menu.svg" alt="burger menu"/></button>
 		</div>
 	)
 }

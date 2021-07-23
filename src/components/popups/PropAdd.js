@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
-import { RoomContext } from '../../contexts/room';
+import {RoomContext} from '../../contexts/room';
+import {mensajeBackend} from '../../helpers';
 
 export default function PropAdd(props){
     const {user, room, setRoom} = useContext(RoomContext);
@@ -22,23 +23,9 @@ export default function PropAdd(props){
         }else{
             alert("error!");
         }
+
+        props.close(false);
     }
-
-    const mensajeBackend = async (url, message) => {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(message)
-		});
-
-		if(response.ok){
-			return await response.json();
-		}else{
-			return null;
-		}
-	}
 
     return(
         <div className="popup-bg">
@@ -52,8 +39,10 @@ export default function PropAdd(props){
                 <label>Image: </label>
                 <input type="text" name="image"/>
 
-                <button>Create</button>
-                <button onClick={() => {props.close(false)}}>Cancel</button>
+                <div className="row">
+                    <button>Create</button>
+                    <button onClick={() => {props.close(false)}}>Cancel</button>
+                </div>
             </form>
         </div>
     );
