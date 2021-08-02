@@ -16,11 +16,12 @@ $img-bg: #C4C4C4;
     padding: 1rem;
     padding-bottom: 3rem; 
 }
-.main-body{
-    background: $gray;
+body{
+    background: rgba($gray, 0.5);
 }
 
-@import './routes/login', './general/general', './general/font', './general/responsive', './routes/main';
+@import './routes/login', './general/general', './general/font',
+ './general/responsive', './routes/main';
 
 .results{
     padding: 2rem;

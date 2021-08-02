@@ -4,6 +4,13 @@ import AdminPanel from './AdminPanel';
 import AddPopUp from './popups/PropAdd';
 import DeletePopUp from './popups/PropDelete';
 
+/**
+ * retorn el elemento jsx para el sidebar, que contiene 
+ * las acciones para interactuar con la sala
+ * 
+ * @param {name: String, code: String, admin: String} props datos de la sala
+ * @returns {JSX.Element} elemento Sidebar
+ */
 export default function Sidebar( props){
     const {room} = useContext(RoomContext);
 

@@ -2,7 +2,6 @@ import {useState, createContext, useContext, useEffect} from "react";
 import {RoomContext} from './room';
 import {useCookies} from 'react-cookie';
 import {mensajeBackend} from '../helpers';
-import { useCallback } from "react";
 
 export const pageMap = {
     login: "login",
@@ -11,6 +10,13 @@ export const pageMap = {
 }
 export const RouteContext = createContext(pageMap);
 
+/**
+ * Context.Provider que se encarga del manejo de las rutas y 
+ * actualizar el url del navegador
+ * 
+ * @param {{}} param0 
+ * @returns {JSX.Element} context provider routing
+ */
 export const Router = ({children}) => {
     const {setUser, setRoom} = useContext(RoomContext);
     const [cookies, setCookie] = useCookies(['_id'])
@@ -22,12 +28,16 @@ export const Router = ({children}) => {
 
     useEffect(() => {
 
+        // funcion asyncronica dentro del useEffect
         const inner = async () => {
+
+            // si existe una cookie la utiliza para iniciar sesion, 
+            // sino redirecciona hacia el login
             if(cookies._id){
                 const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/login`, {
                     id: cookies._id
                 });
-                console.log(res);
+
                 if(res){
                     login(res, {code: cookies._id})
                 }else{
@@ -45,6 +55,7 @@ export const Router = ({children}) => {
     
     useEffect(() => {
 
+        // si no esta logeado reddirecciona hacia el login
         if(!logged & path !== pageMap.login){
             setPath(pageMap.login);
             window.history.replaceState({path: path}, "Something", path);
@@ -54,8 +65,13 @@ export const Router = ({children}) => {
                 window.history.pushState({path: path}, "Something", path);
             }
         }
-    }, [path, logged, useCallback(setCookie)]);
+    }, [path, logged]);
 
+    /**
+     * actualiza los datos de la sala y muestra los resultados si se termino la votacion
+     * 
+     * @param {{room: {}, newLogged: boolean}} param0 
+     */
     const update = ({room= undefined, newLogged= undefined} = {}) => {
         if(room){
             setRoom(room);
@@ -68,6 +84,13 @@ export const Router = ({children}) => {
         }
     }
 
+    /**
+     * hace el login del usuario, cargando los datos de la sala y el usuario al 
+     * contexto de sala y redireccionando a Main o Results segun sea necesario
+     * 
+     * @param {{}} room 
+     * @param {{code: String, name: String}} param1 
+     */
     const login = (room, {code, name}) => {
         
         let userAct = undefined;

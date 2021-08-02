@@ -8,8 +8,6 @@ import {CookiesProvider} from 'react-cookie';
 import dotenv from 'dotenv';
 dotenv.config();
 
-console.log(process.env.REACT_APP_BACKEND_URL)
-
 ReactDOM.render(
   	<React.StrictMode>
 		<CookiesProvider>

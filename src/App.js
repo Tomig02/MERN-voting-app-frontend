@@ -12,6 +12,7 @@ export default function App() {
 	const {room} = useContext(RoomContext);
 	const {path} = useContext(RouteContext);
 
+	/** elige la ruta actual, seria parecido al switch de react-router */
 	const selectRoute = () => {
 		let page;
 		const isEmpty = !(Object.keys(room).length > 0);
@@ -34,6 +35,7 @@ export default function App() {
 	return (
 		<Fragment>
 			{[pageMap.main, pageMap.results].includes(path)? <Header />: null}
+			
 			<div className="App">
 				{selectRoute()}
 			</div>

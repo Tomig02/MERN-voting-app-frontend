@@ -4,10 +4,21 @@ import {mensajeBackend} from '../../helpers';
 
 import Button from '../general/Button';
 
+/**
+ * popup para confirmar que se quiere eliminar la propuesta
+ * 
+ * @param {{close: function}} props funcion para cerrar el popup
+ * @returns {JSX.Element} nuevo elemento popup
+ */
 export default function PropDelete( props ){
     const {room, user, setRoom} = useContext(RoomContext);
 
+    /**
+     * envia al backend el pedido de eliminar la propuesta del usuario
+     */
     const deleteProposal = async () => {
+
+        // envia al backend los datos
         const res = await mensajeBackend(`${process.env.REACT_APP_BACKEND_URL}/deleteProposal`, {
             userID: user._id,
             roomID: room._id

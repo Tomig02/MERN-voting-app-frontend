@@ -4,10 +4,16 @@ import {RouteContext} from '../../contexts/routing';
 
 import Button from './Button';
 
+/**
+ * header de la aplicacion con un boton para cerrar la sesion
+ * 
+ * @returns {JSX.Element} elemento Header
+ */
 export default function Header(){
     const [cookie, setCookie, removeCookie] = useCookies(['_id']);
     const {setLogged} = useContext(RouteContext);
 
+    // cierra la sesion actual
     const exitMain = () => {       
         removeCookie("_id");
         setLogged(false);
