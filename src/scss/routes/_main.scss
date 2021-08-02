@@ -18,7 +18,7 @@
 .abs-container{
     width: 30%;
     margin: 1rem;
-    display: none;
+    display: block;
     
     position: absolute;
     top: 0;
@@ -41,7 +41,7 @@
         }
     }
     >button{
-        width: 80%;
+        width: 100%;
         margin-bottom: 1rem;
 
         &:last-of-type{

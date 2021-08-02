@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext, useState, useEffect} from 'react';
 import {RoomContext} from '../contexts/room';
 import Proposal from '../components/Proposal'
 import Sidebar from '../components/Sidebar';
@@ -12,6 +12,8 @@ import Sidebar from '../components/Sidebar';
 export default function MainRoute(){
 	const {room, user} = useContext(RoomContext); 
 
+	const [showSidebar, setShowSidebar] = useState(false);
+
 	/**
 	 * utiliza los datos de las propuestas para crear los elementos a mostrar
 	 * @returns {JSX.Element[]} propuestas como elementos de react
@@ -21,6 +23,20 @@ export default function MainRoute(){
 			return <Proposal key={element._id} {...element} />
 		})
 	}
+
+	const [width, setWidth] = useState(window.innerWidth);
+	function handleWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+
+	useEffect(() => {
+			window.addEventListener('resize', handleWindowSizeChange);
+			return () => {
+				window.removeEventListener('resize', handleWindowSizeChange);
+			}
+		}, []);
+
+	let isMobile = (width <= 900);
 
 	return(
 		<div className="main-body">
@@ -34,9 +50,12 @@ export default function MainRoute(){
 				{renderProposals()}
 			</div>
 			
-			<Sidebar isAdmin={user.admin} name={user.name} code={user._id} />
+			{isMobile
+				? showSidebar? <Sidebar isAdmin={user.admin} name={user.name} code={user._id} />: null
+				: <Sidebar isAdmin={user.admin} name={user.name} code={user._id} />
+			}
 
-			<button className="burger-btn" >
+			<button className="burger-btn" onClick={() => {setShowSidebar(!showSidebar)}}>
 				<img src="./menu.svg" alt="burger menu"/>
 			</button>
 		</div>

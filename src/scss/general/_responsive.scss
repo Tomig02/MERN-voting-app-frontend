@@ -9,11 +9,9 @@ html{
     @media(min-width: 600px){
         font-size: 1em;
     }
-    @media(min-width: 1100px){
+    @media(min-width: 900px){
         font-size: 1.3em;
-        .abs-container{
-            display: block;
-        }
+        
         .proposals-grid{
             width: 67%;
             margin: auto 0;
@@ -24,6 +22,13 @@ html{
         }
         .burger-btn{
             display: none;
+        }
+    }
+    @media(min-width: 1200px) {
+        .side-bar-inner{
+            >button{
+                width: 80%;
+            }
         }
     }
     @media(min-width: 2000px){
